@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row d-flex ">
+    <div class="col-md-8   my-4">
+        <div class="card">
+            <h5 class="card-header text-center">
+                Create Post
+            </h5>
+            <div class="card-body">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form-group">
+                        <label for="first_name">Product Title</label>
+                        <input type="text" name="title" class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="last_name">Product Image</label>
+                        <input type="file" name="image" class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="username">Minimum Bid Price</label>
+                        <input type="number" name="minBidPrice" class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Product Details</label>
+                        <textarea name="details" class="form-control" required></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="email">End Date</label>
+                        <input type="datetime-local" name="end_date" class="form-control" required>
+                      </div>
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% endblock content %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container product-div">
+    <div class="row p-10">
+        <div class="col-sm-7 p-10">
+            <div class="img text-center" >
+                <img src="{{ product.image.url }}" width="60%" alt="">
+            </div>
+            <div class="text-center">
+              <h3>{{ product.title }}</h3>
+              <p><strong >Last Date to Bid :</strong> {{ product.end_date }}</p>
+              <p><strong> Minimum Bid Amount : </strong>{{ product.minBidPrice }}</p>
+              <p>{{ product.details }}</p>
+              
+              <hr>
+              <a class="btn btn-primary" href="{%url 'singleproduct' product.id %}">Click to Bid</a>
+           </div>
+        </div>
+        <div class="col-sm-5 p-10">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">User Email</th>
+                    <th scope="col">Bid Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row"></th>
+                    <td></td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
