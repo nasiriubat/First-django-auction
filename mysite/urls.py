@@ -19,6 +19,10 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 
+admin.site.site_header = 'Django Auction Site'
+admin.site.site_title = 'Django Auction Site'
+admin.site.index_title = 'Django Auction Site'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),

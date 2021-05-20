@@ -20,10 +20,16 @@ class Product(models.Model):
     def is_end_date(self):
         return timezone.now()>self.end_date
 
+    def total(self):
+        return self.objects.count()
+    
+
+
 class Bid(models.Model):
     user=models.ForeignKey(Account,on_delete=models.CASCADE)
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
     bidAmount=models.IntegerField()
+    created_at=models.DateTimeField(default=timezone.now)
 
     class Meta:
         ordering = ('-bidAmount',)
