@@ -15,15 +15,15 @@ def register(request):
         password ='0'
         user = Account
         if user.objects.filter(email=email).exists():
-                user = authenticate(email=email, password=password)
-                login(request, user)
-                messages.error(request, 'Username is already taken')
-                return redirect('home')
+            user = authenticate(email=email, password=password)
+            login(request, user)
+            messages.success(request, 'This email alreay exists and you are logged in')
+            return redirect('home')
         else:
             user = user.objects.create_user( email=email,password=password)
             user.save()
             login(request, user)
-            messages.success(request, 'You are now logged in')
+            messages.success(request, 'Your Account has been created.')
             return redirect('home')
     
     else:
@@ -44,13 +44,14 @@ def userlogin(request):
         user = authenticate(email=email, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request,'You are now logged in.')
             return redirect('home')
         else:
             user=Account
             user = user.objects.create_user( email=email,password=password)
             user.save()
             login(request, user)
-            messages.success(request, 'You are now logged in')
+            messages.success(request, 'New account is created as the email did not exist.')
             return redirect('home')
     else:
         return render(request, 'registration/login.html')

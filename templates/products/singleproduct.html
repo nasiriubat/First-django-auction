@@ -3,33 +3,60 @@
 
 <div class="container product-div">
     <div class="row p-10">
-        <div class="col-sm-7 p-10">
+        <div class="col-sm-7 p-20" style="background-color: #E8E8E8;padding: 10px;">
             <div class="img text-center" >
                 <img src="{{ product.image.url }}" width="60%" alt="">
             </div>
             <div class="text-center">
               <h3>{{ product.title }}</h3>
               <p><strong >Last Date to Bid :</strong> {{ product.end_date }}</p>
-              <p><strong> Minimum Bid Amount : </strong>{{ product.minBidPrice }}</p>
+              <div class="d-flex justify-content-center">
+                <p><strong> Minimum Bid Amount :    </strong>{{ product.minBidPrice }}  BDT</p>
+              </div>
+              
               <p>{{ product.details }}</p>
               
               <hr>
-              <a class="btn btn-primary" href="{%url 'singleproduct' product.id %}">Click to Bid</a>
+              
            </div>
         </div>
         <div class="col-sm-5 p-10">
-            <table class="table">
+          <div class="formdiv " style="background-color: #E8E8E8;padding: 15px 10px;">
+            {%if product.is_end_date %}
+            <h3 class="text-center">Auction Ended !!</h3>
+              <div class="form-group d-flex  justify-content-center m-auto">
+                <p><strong>The winner is : </strong></p>
+                <h5 style="margin-left: 10px;"> {{ winner.user }}</h5>
+              </div>
+            {%else%}
+            <form action="" method="POST" >
+              {% csrf_token %}
+              {{ form.as_p }}
+              <h3>Place Your Bid Before Deadline !!</h3>
+              <div class="form-group d-flex w-75  justify-content-center m-auto">
+                
+                <input type="number" min="{{ product.minBidPrice }}"  name="bidamount" class="form-control w-50 " style="margin-right: 20px;" size="5" required>
+                <input type="submit" class="btn btn-primary" value="Bid">
+              </div>
+
+            </form>
+            {%endif%}
+          
+        </div>
+            <table class="table table-bordered" style="margin-top: 10px;">
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col">User Email</th>
-                    <th scope="col">Bid Amount</th>
+                    <th scope="col">Bid Amount (TK)</th>
                   </tr>
                 </thead>
                 <tbody>
+                  {%for bid in bids%}
                   <tr>
-                    <th scope="row"></th>
-                    <td></td>
+                    <th scope="row">{{ bid.user.email }}</th>
+                    <td>{{ bid.bidAmount }}</td>
                   </tr>
+                  {%endfor%}
                 </tbody>
             </table>
         </div>
