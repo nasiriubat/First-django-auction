@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+
 <div class="container product-div">
    <div class="row">
       {% for product in products %}
@@ -12,7 +13,6 @@
             </div>
             <div class="text-center">
                <h3>{{ product.title }}</h3>
-               <h4>{{ product.user.id }}</h4>
                <p>Minimum Bid : {{ product.minBidPrice }}</p>
                <hr>
                <a class="btn btn-primary" href="{%url 'singleproduct' product.id %}">Click to Bid</a>

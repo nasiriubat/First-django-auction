@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container product-div" style="color: white;">
+   <div class="d-flex">
+      <div class="col-md-3" style="width:20%; background-color: #1FA8D9; margin: 5px;padding: 10px; text-align: center; border-radius: 10px;">
+         <a href="{%url 'home'%}" style="text-decoration: none; color: white;">
+         <h2>Total Products</h2>
+         <p style="font-size: 50px;">{{ products.count }}</p>
+
+      </div>
+      <div class="col-md-3" style="width:20%; background-color: #63C1E3; margin: 5px;padding: 10px; text-align: center;border-radius: 10px;">
+         <a href="" style="text-decoration: none;color: white;">
+         <h2>Total User</h2>
+         <p style="font-size: 50px;">{{ user.count }}</p>
+      </a>
+      </div>
+         
+      <div class="col-md-3" style="width:20%; background-color: #F8CB02; margin: 5px;padding: 10px; text-align: center;border-radius: 10px;">
+         <a href="{%url 'running'%}" style="text-decoration: none;color: white;">
+         <h2>Running Bid</h2>
+         
+         <p style="font-size: 50px;">{{ running }}</p></a>
+
+      </div>
+      <div class="col-md-3" style="width:20%; background-color: #F76F6A; margin: 5px;padding: 10px; text-align: center;border-radius: 10px;">
+         <a href="{%url 'completed'%}" style="text-decoration: none;color: white;">
+         <h2>Completed Bid</h2>
+         <p style="font-size: 50px;">{{ completed }}</p>
+      </a>
+
+      </div>
+      
+     
+   </div>
+</div>
+{%block new%}
+{% endblock %}
+{% endblock %}
+
+

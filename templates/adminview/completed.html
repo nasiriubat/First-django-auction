@@ -1,0 +1,27 @@
+{% extends 'adminview/adminview.html' %}
+{% load static %}
+
+{%block new%}
+<hr>
+<h2 style="text-align: center;margin-top: 10px; margin-bottom: 10px;">All Completed Auction</h2>
+<div class="row " style="margin-top: 20px;">
+    
+    {% for product in completedbid %}
+      <div class="col-sm-4">
+         <div class="card" style="width: 18rem;border-radius: 10px;">
+            <div class="card-img" >
+               <img src="{{ product.image.url }}" class="card-img-top" alt="..." style="border-top-left-radius: 10px;border-top-right-radius: 10px;">
+            </div>
+            <div class="text-center">
+               <h3>{{ product.title }}</h3>
+               <p>Minimum Bid : {{ product.minBidPrice }}</p>
+               <hr>
+               <a class="btn btn-primary" href="{%url 'singleproduct' product.id %}">Click to Bid</a>
+            </div>
+         </div>
+      </div>
+      {%endfor%}
+    
+</div>
+
+{% endblock %}

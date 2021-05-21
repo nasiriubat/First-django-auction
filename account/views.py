@@ -1,8 +1,10 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import login,authenticate,logout
 from django.contrib import messages
+from django.utils import timezone
 from django.http import HttpResponse
 from .models import Account
+from product.models import Product,Bid
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -55,4 +57,68 @@ def userlogin(request):
             return redirect('home')
     else:
         return render(request, 'registration/login.html')
+
+
+
+
+@login_required
+def adminView(request):
+    if not request.user.is_superuser:
+        messages.success(request,'not allowed')
+        return redirect('home')
+    products=Product.objects.all()
+    user=Account.objects.all()
+    bid=Bid.objects.all()
+    running=0
+    completed=0
+    for product in products:
+        if timezone.now()>product.end_date:
+            completed+=1
+        else:
+            running+=1        
+    context={'products':products,'user':user,'bid':bid,'running':running,'completed':completed}
+    return render(request,'adminview/adminview.html',context)
+
+@login_required
+def completed(request):
+    if not request.user.is_superuser:
+        messages.success(request,'not allowed')
+        return redirect('home')
+    products=Product.objects.all()
+    user=Account.objects.all()
+    bid=Bid.objects.all()
+
+    completedbid=Product.objects.filter(end_date__lt=timezone.now()) 
+    running=0
+    completed=0
+    for product in products:
+        if timezone.now()>product.end_date:
+            completed+=1
+        else:
+            running+=1           
+    context={'products':products,'user':user,'bid':bid,'running':running,'completed':completed,'completedbid':completedbid}
+    return render(request,'adminview/completed.html',context)
+
+
+@login_required
+def running(request):
+    if not request.user.is_superuser:
+        messages.success(request,'not allowed')
+        return redirect('home')
+    products=Product.objects.all()
+    user=Account.objects.all()
+    bid=Bid.objects.all()
+
+    runningbid=Product.objects.filter(end_date__gt=timezone.now()) 
+    running=0
+    completed=0
+    for product in products:
+        if timezone.now()>product.end_date:
+            completed+=1
+        else:
+            running+=1           
+    context={'products':products,'user':user,'bid':bid,'running':running,'completed':completed,'runningbid':runningbid}
+    return render(request,'adminview/running.html',context)
+
+    
 
