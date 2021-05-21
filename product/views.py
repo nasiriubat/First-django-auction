@@ -41,7 +41,7 @@ def singleproduct(request, pk):
 	# bids=get_object_or_404(Bid,product=pk)
 	product=Product.objects.get(id=pk)
 	bids=Bid.objects.filter(product=product)
-	winner = bids.order_by('-bidAmount')[0]
+	winner = bids.order_by('-bidAmount').first()
 	if request.method=='POST':
 		if request.user.is_authenticated:
 		    bid=Bid
