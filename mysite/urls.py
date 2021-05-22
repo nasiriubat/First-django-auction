@@ -20,13 +20,15 @@ from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.views.static import serve
+from account import views
 
 admin.site.site_header = 'Django Auction Site'
 admin.site.site_title = 'Django Auction Site'
 admin.site.index_title = 'Django Auction Site'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('django-admin/', admin.site.urls),
+    path('admin/', views.adminlogin,name='adminlogin'),
     path('account/', include('account.urls')),
     path('', include('product.urls')),
     url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 

@@ -4,6 +4,13 @@
 {% block content %}
 
 <div class="container product-div">
+   {%if messages%}
+      {%for message in messages%}
+      <div class="alert alert-success none fade show" role="alert">
+         {{ message }}
+       </div>
+      {%endfor%}
+   {%endif%}
    <div class="row">
       {% for product in products %}
       <div class="col-sm-4">

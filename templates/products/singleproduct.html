@@ -2,6 +2,13 @@
 {% block content %}
 
 <div class="container product-div">
+  {%if messages%}
+      {%for message in messages%}
+      <div class="alert alert-success none fade show" role="alert">
+         {{ message }}
+       </div>
+      {%endfor%}
+   {%endif%}
     <div class="row p-10">
         <div class="col-sm-7 p-20" style="background-color: #E8E8E8;padding: 10px;">
             <div class="img text-center" >

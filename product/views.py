@@ -26,7 +26,7 @@ def create(request):
 	    product =Product(user=user,title=title, image=image, minBidPrice=minBidPrice, end_date=end_date, details=details)
 	    product.save()
 	    messages.success(request,'New product added.')
-	    return redirect('home')
+	    return redirect('singleproduct',pk=product.id)
 	else:
 		return render(request,'products/createProduct.html')
 
@@ -51,12 +51,15 @@ def singleproduct(request, pk):
 			    biduser=Bid.objects.filter(Q(user=request.user) & Q(product=product)).update(bidAmount=bidmoney)
 			    # biduser.bidAmount=bidmoney
 			    # biduser.save()
+			    messages.success(request,'You bid is updated.')
 			    return redirect ('singleproduct',pk=product.id)
 		    else:
 			    newbid=Bid(user=request.user,product=product,bidAmount=bidmoney)
 			    newbid.save()
+			    messages.success(request,'Your bid is added.')
 			    return redirect('singleproduct',pk=product.id)
 		else:
+			messages.success(request,'You Need to login to bid.')
 			return redirect('login')
 
 	context = {'product':product,'bids':bids,'winner':winner}
